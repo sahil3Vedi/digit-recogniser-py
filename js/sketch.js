@@ -1,6 +1,8 @@
 var pixels=[]
 
 function Pixel(i){
+  this.value=0;
+  this.flick=0;
   this.pos=i;
   this.x=i%28;
   this.y=parseInt(i/28);
@@ -16,13 +18,19 @@ function Pixel(i){
       if((mouseX>a)&&(mouseX<b)){
         document.getElementById("pixeli").innerHTML = a/10;
         fill(0);
+        this.flick=1;
       }
       else{
         fill(255);
+        this.flick=0;
       }
     }
     else{
       fill(255);
+      this.flick=0;
+    }
+    if(this.value==1){
+      fill(0);
     }
     rect(this.x*10,this.y*10,9,9);
   }
@@ -55,4 +63,18 @@ function draw(){
 
 function windowResized() {
   centerCanvas();
+}
+
+function mousePressed(){
+  for (var i=0;i<784;i++){
+    if(pixels[i].flick==1){
+      pixels[i].value=1;
+    }
+  }
+}
+
+function refresh(){
+  for(var i =0;i<784;i++){
+    pixels[i].value=0;
+  }
 }
